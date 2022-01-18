@@ -44,5 +44,33 @@ public class SecretWord {
         return line_counter;
     }
 
+    public static String wordGenerator(String file_name){
+
+        // this variable stores the word which is to be guessed
+        String secret_word = "";
+        int number_of_lines_in_file = numberOfLines(file_name);
+
+        // a random number is being generated
+        // which is used to read a random line from the file
+        Random rand = new Random();
+        int random_int = rand.nextInt(number_of_lines_in_file+1);
+
+        // i am reading the file untill i get to the random line to be read
+        try {
+            File file_obj = new File(file_name);
+            Scanner file_reader = new Scanner(file_obj);
+            for (int i=0; i<random_int; i++) {
+              file_reader.nextLine();
+            }
+            secret_word = file_reader.nextLine();
+            file_reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        return secret_word;
+    }
+
 
 }
