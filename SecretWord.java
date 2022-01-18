@@ -15,12 +15,12 @@ public class SecretWord {
     }
 
     public boolean containsLetter(String letter){
-
         if (this.actual_word.contains(letter.toUpperCase())) return true;
         return false;
     }
 
     public boolean hasLettersRemaining(){
+        if (this.current_state_of_secret_word.contains("_")) return true;
         return false;
     }
 
