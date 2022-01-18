@@ -14,16 +14,17 @@ public class SecretWord {
         this.actual_word = wordGenerator(file);
     }
 
-    public static boolean containsLetter(char letter){
+    public boolean containsLetter(String letter){
 
+        if (this.actual_word.contains(letter.toLowerCase())) return true;
         return false;
     }
 
-    public static boolean hasLettersRemaining(){
+    public boolean hasLettersRemaining(){
         return false;
     }
 
-    public static String myToString(){
+    public String myToString(){
         return "";
     }
 
