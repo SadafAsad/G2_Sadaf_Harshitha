@@ -27,7 +27,7 @@ public class SecretWord {
         // this variable store the number of lines
         int line_counter = 0;
 
-        // basically i am reading the file and counting the lines
+        // basically it's reading the file and counting the lines
         try {
             File file_obj = new File(file_name);
             Scanner file_reader = new Scanner(file_obj);
@@ -55,7 +55,7 @@ public class SecretWord {
         Random rand = new Random();
         int random_int = rand.nextInt(number_of_lines_in_file+1);
 
-        // i am reading the file untill i get to the random line to be read
+        // it's reading the file untill it gets to the random line to be read
         try {
             File file_obj = new File(file_name);
             Scanner file_reader = new Scanner(file_obj);
