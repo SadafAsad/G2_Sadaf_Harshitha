@@ -22,7 +22,7 @@ public class SecretWord {
         return "";
     }
 
-    public static int numberOfLines(String file_name){
+    private static int numberOfLines(String file_name){
         
         // this variable store the number of lines
         int line_counter = 0;
