@@ -16,7 +16,7 @@ public class SecretWord {
 
     public boolean containsLetter(String letter){
 
-        if (this.actual_word.contains(letter.toLowerCase())) return true;
+        if (this.actual_word.contains(letter.toUpperCase())) return true;
         return false;
     }
 
@@ -75,7 +75,7 @@ public class SecretWord {
             e.printStackTrace();
         }
 
-        return secret_word;
+        return secret_word.toUpperCase();
     }
 
 
