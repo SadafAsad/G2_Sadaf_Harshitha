@@ -7,14 +7,15 @@ import java.util.Random;
 
 public class SecretWord {
 
-    String actual_word;
-    String current_state_of_secret_word;
+    public String actual_word;
+    public String current_state_of_secret_word;
 
     public SecretWord(String file){
-        actual_word = wordGenerator(file);
+        this.actual_word = wordGenerator(file);
     }
 
     public static boolean containsLetter(char letter){
+
         return false;
     }
 
