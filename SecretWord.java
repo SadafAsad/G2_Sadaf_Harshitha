@@ -24,8 +24,8 @@ public class SecretWord {
         return false;
     }
 
-    public String myToString(){
-        return "";
+    public String toString(){
+        return this.current_state_of_secret_word;
     }
 
     private static int numberOfLines(String file_name){
