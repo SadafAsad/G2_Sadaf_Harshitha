@@ -28,7 +28,7 @@ public class SecretWord {
         return this.current_state_of_secret_word;
     }
 
-    private static int numberOfLines(String file_name){
+    private int numberOfLines(String file_name){
         
         // this variable store the number of lines
         int line_counter = 0;
@@ -50,7 +50,7 @@ public class SecretWord {
         return line_counter;
     }
 
-    public static String wordGenerator(String file_name){
+    private String wordGenerator(String file_name){
 
         // this variable stores the word which is to be guessed
         String secret_word = "";
