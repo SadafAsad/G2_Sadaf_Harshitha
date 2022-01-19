@@ -12,6 +12,12 @@ public class SecretWord {
 
     public SecretWord(String file){
         this.actual_word = wordGenerator(file);
+
+        // for each char in the actual word, we have a _ in the current state
+        int chars_num = this.actual_word.length();
+        for (int i=0; i<chars_num; i++){
+            this.current_state_of_secret_word = this.current_state_of_secret_word.concat("_");
+        }
     }
 
     public boolean containsLetter(String letter){
