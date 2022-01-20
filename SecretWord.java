@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class SecretWord {
 
-    public String actual_word;
-    public String current_state_of_secret_word;
+    private String actual_word;
+    private String current_state_of_secret_word;
 
     public SecretWord(String file){
         this.actual_word = wordGenerator(file);
@@ -19,6 +19,8 @@ public class SecretWord {
             this.current_state_of_secret_word = this.current_state_of_secret_word.concat("_");
         }
     }
+
+    public String getActualWord(){ return actual_word; }
 
     public boolean containsLetter(String letter){
 
