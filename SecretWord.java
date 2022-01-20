@@ -21,7 +21,25 @@ public class SecretWord {
     }
 
     public boolean containsLetter(String letter){
-        if (this.actual_word.contains(letter.toUpperCase())) return true;
+
+        // this variable stores actual word length
+        int actual_word_len = this.actual_word.length();
+        
+        // checks if actual word contains letter
+        if (this.actual_word.contains(letter.toUpperCase())){
+
+            int start_at = 0;
+            int end_at = actual_word_len-1;
+            int index_letter;
+
+            // searchs for all the 'letter's in actual word and updates the current state
+            while (start_at<=end_at){
+                index_letter = this.actual_word.indexOf(letter, start_at);
+                this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, index_letter-1) + letter.toUpperCase() + this.current_state_of_secret_word.substring(index_letter+1, actual_word_len-1);
+                start_at = index_letter+1;
+            }
+            return true;
+        }
         return false;
     }
 
