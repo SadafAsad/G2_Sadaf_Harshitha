@@ -16,7 +16,7 @@ public class SecretWord {
         // for each char in the actual word, we have a _ in the current state
         int chars_num = this.actual_word.length();
         for (int i=0; i<chars_num; i++){
-            this.current_state_of_secret_word = this.current_state_of_secret_word.concat("_");
+            this.current_state_of_secret_word = this.current_state_of_secret_word.concat("_ ");
         }
     }
 
@@ -38,11 +38,12 @@ public class SecretWord {
 
                 // if the last letter in the actual word is 'letter'
                 // just to avoid index out of range error
+                // all the 2*s are because of the spaces in between the _s
                 if (index_letter==end_at){
-                    this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, index_letter) + letter.toUpperCase();
+                    this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, 2*index_letter) + letter.toUpperCase();
                 }
                 else{
-                    this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, index_letter) + letter.toUpperCase() + this.current_state_of_secret_word.substring(index_letter+1, actual_word_len-1);
+                    this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, 2*index_letter) + letter.toUpperCase() + this.current_state_of_secret_word.substring(2*index_letter+1, 2*actual_word_len-1);
                 }
                 start_at = index_letter+1;
             }
