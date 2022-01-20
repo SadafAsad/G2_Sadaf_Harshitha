@@ -59,6 +59,8 @@ public class SecretWord {
     public String toString(){
         int word_len = this.current_state_of_secret_word.length();
         String current_state_displayer = "";
+
+        // adds " " after each character
         for(int i=0; i<word_len; i++){
             current_state_displayer = current_state_displayer + this.current_state_of_secret_word.substring(i, i+1) + " ";
         }
