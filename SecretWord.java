@@ -35,7 +35,15 @@ public class SecretWord {
             // searchs for all the 'letter's in actual word and updates the current state
             while (start_at<=end_at){
                 index_letter = this.actual_word.indexOf(letter, start_at);
-                this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, index_letter-1) + letter.toUpperCase() + this.current_state_of_secret_word.substring(index_letter+1, actual_word_len-1);
+
+                // if the last letter in the actual word is 'letter'
+                // just to avoid index out of range error
+                if (index_letter==end_at){
+                    this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, index_letter) + letter.toUpperCase();
+                }
+                else{
+                    this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, index_letter) + letter.toUpperCase() + this.current_state_of_secret_word.substring(index_letter+1, actual_word_len-1);
+                }
                 start_at = index_letter+1;
             }
             return true;
