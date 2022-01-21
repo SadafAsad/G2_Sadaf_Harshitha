@@ -11,60 +11,70 @@ public class SecretWord {
     private String current_state_of_secret_word;
 
     public SecretWord(String file){
-        this.actual_word = wordGenerator(file);
+        setActualWord(wordGenerator(file));
 
         // for each char in the actual word, we have a _ in the current state
         int chars_num = this.actual_word.length();
+        String str = "";
         for (int i=0; i<chars_num; i++){
-            this.current_state_of_secret_word = this.current_state_of_secret_word.concat("_");
+            str = str.concat("_");
         }
+
+        setCurrentStateOfSecretWord(str);
     }
 
     public String getActualWord(){ return actual_word; }
+    private void setActualWord(String word){ actual_word = word; }
+
+    private String getCurrentStateOfSecretWord(){ return current_state_of_secret_word; }
+    private void setCurrentStateOfSecretWord(String current_state){ current_state_of_secret_word = current_state; }
 
     public boolean containsLetter(String letter){
 
         // this variable stores actual word length
-        int actual_word_len = this.actual_word.length();
+        int actual_word_len = getActualWord().length();
         
         // checks if actual word contains letter
-        if (this.actual_word.contains(letter.toUpperCase())){
+        if (getActualWord().contains(letter.toUpperCase())){
 
             int start_at = 0;
             int end_at = actual_word_len-1;
             int index_letter;
 
+            String current_state = getCurrentStateOfSecretWord();
+
             // searchs for all the 'letter's in actual word and updates the current state
             while (start_at<=end_at){
-                index_letter = this.actual_word.indexOf(letter, start_at);
+                index_letter = getActualWord().indexOf(letter, start_at);
 
                 // if the last letter in the actual word is 'letter'
                 // just to avoid index out of range error
                 if (index_letter==end_at){
-                    this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, index_letter) + letter.toUpperCase();
+                    current_state = current_state.substring(0, index_letter) + letter.toUpperCase();
                 }
                 else{
-                    this.current_state_of_secret_word = this.current_state_of_secret_word.substring(0, index_letter) + letter.toUpperCase() + this.current_state_of_secret_word.substring(index_letter+1, actual_word_len-1);
+                    current_state = current_state.substring(0, index_letter) + letter.toUpperCase() + current_state.substring(index_letter+1, actual_word_len-1);
                 }
                 start_at = index_letter+1;
             }
+            setCurrentStateOfSecretWord(current_state);
             return true;
         }
         return false;
     }
 
     public boolean hasLettersRemaining(){
-        if (this.current_state_of_secret_word.contains("_")) return true;
+        if (getCurrentStateOfSecretWord().contains("_")) return true;
         return false;
     }
 
     public String toString(){
-        int word_len = this.current_state_of_secret_word.length();
+        int word_len = getCurrentStateOfSecretWord().length();
         String current_state_displayer = "";
 
         // adds " " after each character
         for(int i=0; i<word_len; i++){
-            current_state_displayer = current_state_displayer + this.current_state_of_secret_word.substring(i, i+1) + " ";
+            current_state_displayer = current_state_displayer + getCurrentStateOfSecretWord().substring(i, i+1) + " ";
         }
         return current_state_displayer;
     }
