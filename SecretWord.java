@@ -30,36 +30,7 @@ public class SecretWord {
     private void setCurrentStateOfSecretWord(String current_state){ current_state_of_secret_word = current_state; }
 
     public boolean containsLetter(String letter){
-
-        // this variable stores actual word length
-        int actual_word_len = getActualWord().length();
-        
-        // checks if actual word contains letter
-        if (getActualWord().contains(letter.toUpperCase())){
-
-            int start_at = 0;
-            int end_at = actual_word_len-1;
-            int index_letter;
-
-            String current_state = getCurrentStateOfSecretWord();
-
-            // searchs for all the 'letter's in actual word and updates the current state
-            while (start_at<=end_at){
-                index_letter = getActualWord().indexOf(letter, start_at);
-
-                // if the last letter in the actual word is 'letter'
-                // just to avoid index out of range error
-                if (index_letter==end_at){
-                    current_state = current_state.substring(0, index_letter) + letter.toUpperCase();
-                }
-                else{
-                    current_state = current_state.substring(0, index_letter) + letter.toUpperCase() + current_state.substring(index_letter+1, actual_word_len-1);
-                }
-                start_at = index_letter+1;
-            }
-            setCurrentStateOfSecretWord(current_state);
-            return true;
-        }
+        if (getActualWord().contains(letter.toUpperCase())) return true;
         return false;
     }
 
