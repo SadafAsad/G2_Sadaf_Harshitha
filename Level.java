@@ -1,50 +1,75 @@
-/*The level class has info about - 
- 	1. The level number
- 	2. The number of chances the player has remaining in the level 
- 	3. Check the result of the player's guesses
-*/
 
 public class Level {
 	
-	// Properties of Level Class
-	int levelNumber = 1; // we can set the default value to 1, as a level always starts with 1! 
-	int chancesRemaining = 7; 
-	// SecretWord theWord; // whatever instance we create for the Secret Word class must be updated HERE
-	boolean debugOn = false; // by default it is false, because we don't want to output the secret word; if this variable is set to true - it has to display the current secret word in plain text
+	//properties 
+	private int levelNumber;
+	private int chancesRemaining; 
+	private SecretWord theSecretWord; 
+	private boolean debugOn; 	
 	
-	//Constructor of Level Class
-	//UPDATE: Secret word could be passed into the Constructor
-	public Level() {
-		System.out.println("Welcome to Level "+ levelNumber);
-		System.out.println("Chances remaining: "+ chancesRemaining);
-		// theWord = secretWord; 
-		
+	//constructor
+	public Level(int levelNumber, int chancesRemaining, SecretWord theSecretWord, boolean debugOn) {
+		this.levelNumber = levelNumber;
+		this.chancesRemaining = chancesRemaining;
+		this.theSecretWord = theSecretWord;
+		this.debugOn = debugOn;
 	}
 	
-	
-	// Behaviours/Actions of Level Class
-	
-	public String toString() {
-		// returns string with level num, the secret word, number of guess, if debugOn is true, output the secret word in text
-		
-		return "";
-	}
-	
+	//methods
 	public Boolean checkGuess(char guessedLetter) {
-		// if the letter is present, update the secret word - return TRUE
-		
-		//else - reduce the number of chances - return FALSE
-		
-		return false;
+		if(this.theSecretWord.containsLetter(guessedLetter)) {
+			//update the letters(s) where this occurs
+			String str = this.theSecretWord.getCurrentStateOfWord();
+			int index = this.theSecretWord.getActualWord().indexOf(guessedLetter);
+			str = str.substring(0, index) + guessedLetter + str.substring(index + 1,this.theSecretWord.getActualWord().length()- 1);
+			this.theSecretWord.setCurrentStateOfWord(str);
+			return true;
+		} else {
+			//reduce the number of chances
+			this.chancesRemaining--;
+			return false;
+		}
 	}
 	
 	public Boolean isWordGuessed() {
-		
-		//if the player has guessed the secret word return TRUE
-		
-		//else false
-		
-		return false;
-		
+		if(this.theSecretWord.hasLettersRemaining()) {
+			//player has not guessed the word
+			return false;
+		} else {
+			return true;
+		}
 	}
+
+	@Override
+	public String toString() {
+		String result;
+		
+		if(isDebugOn()) {
+			result = "Level: " + this.levelNumber + "," +"Chances Remaining: " + this.chancesRemaining + ","
+					+ "Secret Word: "+ this.theSecretWord.getCurrentStateOfWord() + "," + "Actual Word: "+ this.theSecretWord.getActualWord();
+		} else {
+			result = "Level: " + this.levelNumber + "," +"Chances Remaining: " + this.chancesRemaining + ","
+					+ "Secret Word: "+ this.theSecretWord.getCurrentStateOfWord();
+		}
+		
+		return result;
+	}
+	
+	//getters
+	public int getLevelNumber() {
+		return this.levelNumber;
+	}
+
+	public int getChancesRemaining() {
+		return this.chancesRemaining;
+	}
+
+	public SecretWord getTheSecretWord() {
+		return this.theSecretWord;
+	}
+
+	public boolean isDebugOn() {
+		return this.debugOn;
+	}
+
 }
