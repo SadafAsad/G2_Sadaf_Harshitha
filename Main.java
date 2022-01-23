@@ -9,8 +9,8 @@ public class Main {
 		//Initializing System variables
 		Scanner keyboardInput = new Scanner(System.in);
 		
-		// variables in Main 
-		int playerMenuChoices;	
+		// variables in Main 	
+		String playerMenuChoices;
 
 		
 		// Welcome message 
@@ -23,16 +23,17 @@ public class Main {
 			System.out.println("\t1.Start Game");
 			System.out.println("\t2.Results of previous games");
 			System.out.println("\t3.Exit");
+			System.out.print(">>> ");
 			
-			playerMenuChoices = Integer.parseInt(keyboardInput.nextLine());
+			playerMenuChoices = keyboardInput.nextLine();
 			
 			//checking user's entered choices 
-			if(playerMenuChoices == 1 ) {
+			if(playerMenuChoices.equals("1")) {
 				// the player chooses to start the game
 				startGame();
 				break;
 			} 
-			else if (playerMenuChoices == 2) {
+			else if (playerMenuChoices.equals("2")) {
 				System.out.println("Results of the previous games");
 				
 				//PreviousGameResult previousResult = new PreviousGameResult(); 
@@ -40,7 +41,7 @@ public class Main {
 				//previousResult.displayString();
 				break;
 			}
-			else if (playerMenuChoices == 3) {
+			else if (playerMenuChoices.equals("3")) {
 				System.out.println("*************\n");
 				System.out.println("Oh no! We're sad to see you go! Goodbye~ \n ");
 				System.out.println("*************\n");
