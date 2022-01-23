@@ -1,5 +1,6 @@
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,7 +50,12 @@ public class Main {
 			     }
 				// Catch block to handle IO exceptions
 			    catch (IOException e) {
+					if (e instanceof FileNotFoundException){
+						System.out.println("No games played yet.");
+					}
+					else{
 			    	System.out.println("Exception Occurred" + e);
+					}
 			    }
 				break;
 			}
