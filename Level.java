@@ -24,10 +24,10 @@ public class Level {
 			
 			String str = this.theSecretWord.getActualWord();
 			String currentState = this.theSecretWord.getCurrentStateOfSecretWord();
+			char letter = guessedLetter.toUpperCase().charAt(0);
 			
 			//ArrayList<Character> playerGuesses = new ArrayList<>();
 			for(int i= str.indexOf(guessedLetter.toUpperCase()); i < wordLength; i++) {
-					char letter = guessedLetter.toUpperCase().charAt(0);
 					if(str.charAt(i) == letter) {
 						currentState = currentState.substring(0,i) + guessedLetter.toUpperCase() + currentState.substring(i + 1);
 						this.theSecretWord.setCurrentStateOfSecretWord(currentState);
