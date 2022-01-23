@@ -39,7 +39,6 @@ public class Main {
 				//PreviousGameResult previousResult = new PreviousGameResult(); 
 				
 				//previousResult.displayString();
-				break;
 			}
 			else if (playerMenuChoices.equals("3")) {
 				System.out.println("*************\n");
