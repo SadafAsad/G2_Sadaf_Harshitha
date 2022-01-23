@@ -57,7 +57,6 @@ public class Main {
 			    	System.out.println("Exception Occurred" + e);
 					}
 			    }
-				break;
 			}
 			else if (playerMenuChoices.equals("3")) {
 				System.out.println("*************\n");
