@@ -128,10 +128,7 @@ public class Main {
 		
 		//System.out.println("Score = "+ score);
 		
-		PreviousGameResult previousResult = new PreviousGameResult(); 
-		
-		previousResult.setDatePlayed();
-		previousResult.setPoints(score);
+		PreviousGameResult previousResult = new PreviousGameResult(score); 
 		
 		String time = previousResult.getDatePlayed();
 		

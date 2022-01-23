@@ -13,14 +13,14 @@ public class PreviousGameResult {
     private ArrayList<String> resultsOfGames = new  ArrayList<String>(); 
     
     
-    public PreviousGameResult(){
-    	//setDatePlayed();
-        //setPoints(points); 
+    public PreviousGameResult(int points){
+    	setDatePlayed();
+        setPoints(points); 
     }
 
     public String getDatePlayed(){ return datePlayed; }
     
-    public void setDatePlayed(){
+    private void setDatePlayed(){
         DateTimeFormatter datePlayed = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
         LocalDateTime now = LocalDateTime.now(); 
         this.datePlayed = datePlayed.format(now);
