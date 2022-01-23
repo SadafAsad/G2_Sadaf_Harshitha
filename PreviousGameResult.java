@@ -2,7 +2,11 @@
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.time.LocalDateTime;  
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;   
 
 public class PreviousGameResult {
 
@@ -38,6 +42,16 @@ public class PreviousGameResult {
     	return "Date/Time: " + this.datePlayed + "\n" + "Score: " + getPoints() + "\n";
     }
     
-    
+    public void storeValues() throws IOException {
+
+    	BufferedWriter writer = new BufferedWriter(new FileWriter(new File("previous_results.txt"),true));
+    	
+    	String stuffToWrite = toString();
+
+    	writer.write(stuffToWrite);
+    	
+    	writer.close();
+
+    }
     
 }

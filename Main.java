@@ -1,4 +1,7 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,11 +37,21 @@ public class Main {
 				break;
 			} 
 			else if (playerMenuChoices.equals("2")) {
-				System.out.println("Results of the previous games");
-				
-				//PreviousGameResult previousResult = new PreviousGameResult(); 
-				
-				//previousResult.displayString();
+				try {
+			        BufferedReader inputResults = new BufferedReader(new FileReader("previous_results.txt"));
+			        String resultString;
+			        while ((resultString = inputResults.readLine()) != null) {
+						System.out.print("\n");
+			        	System.out.println(resultString);
+						System.out.println(inputResults.readLine());
+			        }
+			        inputResults.close();
+			     }
+				// Catch block to handle IO exceptions
+			    catch (IOException e) {
+			    	System.out.println("Exception Occurred" + e);
+			    }
+				break;
 			}
 			else if (playerMenuChoices.equals("3")) {
 				System.out.println("*************\n");
@@ -66,6 +79,7 @@ public class Main {
 		final int totalNumberOfLevels = 3;
 		boolean isDebugOn = true;
 		int score = 0;
+		ArrayList<Level> gameLevels = new ArrayList<Level>(totalNumberOfLevels);
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -76,22 +90,22 @@ public class Main {
 			SecretWord theSecretWord = new SecretWord();
 			
 			//creating all these arrayList only when level starts/moves to next one
-			ArrayList<Level> gameLevels = new ArrayList<Level>(totalNumberOfLevels);
+			//ArrayList<Level> gameLevels = new ArrayList<Level>(totalNumberOfLevels);
 			
 			gameLevels.add(new Level(i, theSecretWord, isDebugOn));
 
-			System.out.println(gameLevels.toString());
+			System.out.println(gameLevels.get(i).toString());
 			
 			/* the player can play until they guess the word AND 
 			   they have still chances remaining to guess the word
 			*/
 			
-			while(!(gameLevels.get(0).isWordGuessed()) 
-				&& (gameLevels.get(0).getChancesRemaining() != 0)) {
+			while(!(gameLevels.get(i).isWordGuessed()) 
+				&& (gameLevels.get(i).getChancesRemaining() != 0)) {
 				
-				System.out.println("Current Level: " + gameLevels.get(0).getLevelNumber());
-				System.out.println("Chances Remaining: " + gameLevels.get(0).getChancesRemaining());
-				System.out.println("Secret Word: " + gameLevels.get(0).getTheSecretWord().toString());
+				System.out.println("Current Level: " + gameLevels.get(i).getLevelNumber());
+				System.out.println("Chances Remaining: " + gameLevels.get(i).getChancesRemaining());
+				System.out.println("Secret Word: " + gameLevels.get(i).getTheSecretWord().toString());
 				
 
 				System.out.println("\nGuess a letter: ");
@@ -99,20 +113,21 @@ public class Main {
 				
 				System.out.println("You guessed: " + guessedLetter);
 
-				if(gameLevels.get(0).checkGuess(guessedLetter)) {
+				if(gameLevels.get(i).checkGuess(guessedLetter)) {
 					System.out.println("CORRECT! " + guessedLetter.toUpperCase() + " is in the word.\n");
 				} else {
 					System.out.println("WRONG! "+ guessedLetter.toUpperCase() + " is not in the word.\n");
 				}
 			}
 		
-			if(gameLevels.get(0).getChancesRemaining() == 0){
+			if(gameLevels.get(i).getChancesRemaining() == 0){
 			     System.out.println("Sorry you are out of all the guesses! You LOSE!\n");
+				 break;
 			} else {
 			     System.out.println("Congratulations you have guessed the word! You WIN!\n");
-			     score+=gameLevels.get(0).getChancesRemaining();
-			     if(gameLevels.get(0).getLevelNumber() < totalNumberOfLevels) {
-			    	 System.out.println("Welcome to Level: " + gameLevels.get(0).getLevelNumber());
+			     score+=gameLevels.get(i).getChancesRemaining();
+			     if(gameLevels.get(i).getLevelNumber() < totalNumberOfLevels) {
+			    	 System.out.println("Welcome to Level: " + gameLevels.get(i).getLevelNumber());
 			    	 
 			     }
 			     System.out.println("Current Score: " + score);
@@ -129,12 +144,12 @@ public class Main {
 		//System.out.println("Score = "+ score);
 		
 		PreviousGameResult previousResult = new PreviousGameResult(score); 
-		
-		String time = previousResult.getDatePlayed();
-		
-		previousResult.convertResultsIntoList(time,score);
-		
-		System.out.println(previousResult.toString());
+		try {
+			previousResult.storeValues();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		sc.close();
 	}
