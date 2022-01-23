@@ -5,12 +5,13 @@ public class Level {
 	private int levelNumber; //by default, our game starts with 1
 	private int chancesRemaining; //by default, our game has 7 chances to guess a word
 	private SecretWord theSecretWord; 
-	private boolean debugOn; 	
+	private boolean debugOn;
+	private final int numberOfChances = 7; 	
 	
 	//constructor
 	public Level(int levelNumber, SecretWord theSecretWord, boolean debugOn) {
 		this.levelNumber = levelNumber + 1;
-		this.chancesRemaining = 7;
+		this.chancesRemaining = this.numberOfChances;
 		this.theSecretWord = theSecretWord;
 		this.debugOn = debugOn;
 	}
