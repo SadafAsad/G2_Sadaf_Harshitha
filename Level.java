@@ -14,10 +14,10 @@ public class Level {
 		this.theSecretWord = theSecretWord;
 		this.debugOn = debugOn;
 	}
-	
+
 	//methods
 	public Boolean checkGuess(String guessedLetter) {
-		if(this.theSecretWord.containsLetter(guessedLetter)) {
+		if(this.theSecretWord.containsLetter(guessedLetter.toUpperCase())) {
 			//update the letters(s) where this occurs
 			int wordLength = this.theSecretWord.getActualWord().length();
 			
@@ -25,8 +25,8 @@ public class Level {
 			String currentState = this.theSecretWord.getCurrentStateOfSecretWord();
 			
 			//ArrayList<Character> playerGuesses = new ArrayList<>();
-			for(int i= str.indexOf(guessedLetter); i < wordLength; i++) {
-					char letter = guessedLetter.charAt(0);
+			for(int i= str.indexOf(guessedLetter.toUpperCase()); i < wordLength; i++) {
+					char letter = guessedLetter.toUpperCase().charAt(0);
 					if(str.charAt(i) == letter) {
 						currentState = currentState.substring(0,i) + guessedLetter.toUpperCase() + currentState.substring(i + 1);
 						this.theSecretWord.setCurrentStateOfSecretWord(currentState);
