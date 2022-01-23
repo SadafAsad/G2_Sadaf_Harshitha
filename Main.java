@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -12,8 +11,7 @@ public class Main {
 		
 		// variables in Main 
 		int playerMenuChoices;	
-				
-		
+
 		
 		// Welcome message 
 		System.out.println("*************\n");
@@ -36,6 +34,10 @@ public class Main {
 			} 
 			else if (playerMenuChoices == 2) {
 				System.out.println("Results of the previous games");
+				
+				//PreviousGameResult previousResult = new PreviousGameResult(); 
+				
+				//previousResult.displayString();
 				break;
 			}
 			else if (playerMenuChoices == 3) {
@@ -58,91 +60,85 @@ public class Main {
 		
 	}
 	
-	public static ArrayList<String> wordsListGenerator() {
-		
-		//creating an arrayList of words that will be used later
-		ArrayList<String> wordsList = new ArrayList<String>();
-		
-		//manually adding some words to this list
-		wordsList.add("Alligator");
-		wordsList.add("Cheetah");
-		wordsList.add("Cadillac");
-		wordsList.add("Honda");
-		wordsList.add("Aladdin");
-		wordsList.add("Titanic");
-		wordsList.add("Baseball");
-		wordsList.add("Tennis");
-		wordsList.add("Vancouver");
-		wordsList.add("Detroit");
-		wordsList.add("Paris");
-		wordsList.add("London");
-		wordsList.add("Winnipeg");
-		wordsList.add("Alberta");
-		wordsList.add("Montreal");
-		wordsList.add("Summer");
-		wordsList.add("Winter");
-		wordsList.add("Fireworks");
-		wordsList.add("Heart");
-		wordsList.add("Halloween");
-		wordsList.add("Thanksgiving");
-		wordsList.add("Miracles");
-		wordsList.add("Turkey");
-		wordsList.add("Banjo");
-		wordsList.add("Stripes");
-		
-		return wordsList;
-		
-	}
-	
-	public static String pickRandomWord(){
-		
-		ArrayList<String> words = wordsListGenerator();
-		
-		//create Random object
-        Random random = new Random();
-		int randomNumber = random.nextInt(words.size());
-		
-		//get word from words list using the random number
-		String output = words.get(randomNumber);
-		return output;
-	
-	}
 	
 	public static void startGame() {
 		
 		final int totalNumberOfLevels = 3;
-		int startingLevel = 1;
-		int numberOfGuesses = 7;
 		boolean isDebugOn = true;
+		int score = 0;
 		
 		Scanner sc = new Scanner(System.in);
 		
-		String secretWord = pickRandomWord();
-		SecretWord theSecretWord = new SecretWord(secretWord);
 		
-		//creating all these arrayList only when level starts/moves to next one
-		ArrayList<Level> gameLevels = new ArrayList<Level>(totalNumberOfLevels);
+		for(int i = 0; i < totalNumberOfLevels; i++) {
+			
+			//picking a word from the file and sending it to SecretWord object
+			SecretWord theSecretWord = new SecretWord();
+			
+			//creating all these arrayList only when level starts/moves to next one
+			ArrayList<Level> gameLevels = new ArrayList<Level>(totalNumberOfLevels);
+			
+			gameLevels.add(new Level(i, theSecretWord, isDebugOn));
+
+			System.out.println(gameLevels.toString());
+			
+			/* the player can play until they guess the word AND 
+			   they have still chances remaining to guess the word
+			*/
+			
+			while(!(gameLevels.get(0).isWordGuessed()) 
+				&& (gameLevels.get(0).getChancesRemaining() != 0)) {
+				
+				System.out.println("Current Level: " + gameLevels.get(0).getLevelNumber());
+				System.out.println("Chances Remaining: " + gameLevels.get(0).getChancesRemaining());
+				System.out.println("Secret Word: " + gameLevels.get(0).getTheSecretWord().toString());
+				
+
+				System.out.println("\nGuess a letter: ");
+				String guessedLetter = sc.nextLine();
+				
+				System.out.println("You guessed: " + guessedLetter);
+
+				if(gameLevels.get(0).checkGuess(guessedLetter)) {
+					System.out.println("CORRECT! " + guessedLetter.toUpperCase() + " is in the word.\n");
+				} else {
+					System.out.println("WRONG! "+ guessedLetter.toUpperCase() + " is not in the word.\n");
+				}
+			}
 		
-		gameLevels.add(new Level(startingLevel, numberOfGuesses, theSecretWord, isDebugOn));
-		
-		System.out.println(gameLevels.toString());
-		
-		System.out.println("Current Level: " + gameLevels.get(0).getLevelNumber());
-		System.out.println("Chances Remaining: " + gameLevels.get(0).getChancesRemaining());
-		System.out.println("Secret Word: " + gameLevels.get(0).getTheSecretWord().getCurrentStateOfWord());
-		
-		System.out.println("Guess a letter: ");
-		char guessedLetter = sc.nextLine().charAt(0);
-		
-		System.out.println("You guessed: " + guessedLetter);
-		
-		if(gameLevels.get(0).checkGuess(guessedLetter)) {
-			System.out.println("CORRECT! " + guessedLetter + " is in the word.");
-			System.out.println("Secret Word: " + gameLevels.get(0).getTheSecretWord().getCurrentStateOfWord());
-		} else {
-			System.out.println("Wrong! "+ guessedLetter + " is not in the word.");
-			System.out.println("You have chances remainnig: " +	gameLevels.get(0).getChancesRemaining());
+			if(gameLevels.get(0).getChancesRemaining() == 0){
+			     System.out.println("Sorry you are out of all the guesses! You LOSE!\n");
+			} else {
+			     System.out.println("Congratulations you have guessed the word! You WIN!\n");
+			     score+=gameLevels.get(0).getChancesRemaining();
+			     if(gameLevels.get(0).getLevelNumber() < totalNumberOfLevels) {
+			    	 System.out.println("Welcome to Level: " + gameLevels.get(0).getLevelNumber());
+			    	 
+			     }
+			     System.out.println("Current Score: " + score);
+			     
+			}
+	
 		}
+		
+		System.out.println("");
+		System.out.println("\n*************\n");
+		System.out.println("\nThank you for playing the game with us!\n");
+		System.out.println("\n*************\n");
+		
+		//System.out.println("Score = "+ score);
+		
+		PreviousGameResult previousResult = new PreviousGameResult(); 
+		
+		previousResult.setDatePlayed();
+		previousResult.setPoints(score);
+		
+		String time = previousResult.getDatePlayed();
+		
+		previousResult.convertResultsIntoList(time,score);
+		
+		System.out.println(previousResult.toString());
+		
 		sc.close();
 	}
 
